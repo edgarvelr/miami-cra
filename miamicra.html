@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ========================================
+         META TAGS & SEO
+         ======================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Miami Community Redevelopment Agency - Building a Better Community through OMNI CRA, Southeast Overtown/Park West CRA, and Midtown CRA">
+    <meta name="keywords" content="Miami CRA, Community Redevelopment Agency, OMNI CRA, Southeast Overtown, Park West, Midtown">
+    <title>Miami Community Redevelopment Agency</title>
+
+    <!-- ========================================
+         EXTERNAL DEPENDENCIES
+         ======================================== -->
+    
+    <!-- Tailwind CSS - Utility-first CSS framework for styling -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+    <!-- Alpine.js - Lightweight JavaScript framework for reactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Google Fonts - Inter font family for consistent typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome - Icon library for contact information and UI elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ========================================
+         CUSTOM STYLES
+         ======================================== -->
+    <style>
+        /* ========================================
+           BASE STYLES & TYPOGRAPHY
+           ======================================== */
+        
+        /* Set Inter as the primary font family for consistent typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
+            scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+        }
+        
+        /* ========================================
+           DARK MODE THEME
+           ======================================== */
+        
+        /* Dark mode base styles - applied when body has 'dark' class */
+        body.dark {
+            background-color: #111827; /* Dark gray background */
+            color: #f9fafb; /* Light text for dark background */
+        }
+        
+        /* Ensure headings use the same font family for consistency */
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* ========================================
+           ALPINE.JS UTILITIES
+           ======================================== */
+        
+        /* Hide elements with x-cloak until Alpine.js is loaded */
+        [x-cloak] { display: none !important; }
+        
+        /* ========================================
+           HERO SECTION & BACKGROUNDS
+           ======================================== */
+        
+        /* Hero section background with Miami skyline image */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1540998145393-763b52124979?q=80&w=2940&auto=format&fit=crop');
+            background-size: cover; /* Cover entire container */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Parallax effect */
+        }
+        
+        /* ========================================
+           ANIMATIONS & EFFECTS
+           ======================================== */
+        
+        /* Loading animation for cards - creates a pulsing effect */
+        .card-loading {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Pulse animation keyframes for loading states */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        /* ========================================
+           ACCESSIBILITY & UX
+           ======================================== */
+        
+        /* Focus styles for better keyboard navigation accessibility */
+        .focus-visible:focus {
+            outline: 2px solid #2563eb; /* Blue outline for focus */
+            outline-offset: 2px; /* Space between element and outline */
+        }
+        
+        /* Scroll padding to account for sticky header when using anchor links */
+        html {
+            scroll-padding-top: 80px; /* Prevents content from hiding behind header */
+        }
+        
+        /* ========================================
+           DARK MODE TOGGLE COMPONENT
+           ======================================== */
+        
+        /* Dark mode toggle button styling */
+        .dark-mode-toggle {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b); /* Orange gradient for light mode */
+            border: none;
+            border-radius: 50%; /* Circular button */
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transitions */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        
+        /* Hover effect for dark mode toggle */
+        .dark-mode-toggle:hover {
+            transform: scale(1.05); /* Slight scale on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+        
+        /* Dark mode toggle styling when dark theme is active */
+        body.dark .dark-mode-toggle {
+            background: linear-gradient(45deg, #1f2937, #374151); /* Dark gradient for dark mode */
+        }
+        
+        /* Dark mode header */
+        body.dark header {
+            background-color: #1f2937 !important;
+            border-bottom-color: #374151 !important;
+        }
+        
+        /* Dark mode main container */
+        body.dark .bg-white {
+            background-color: #1f2937 !important;
+        }
+        
+        /* Dark mode text colors */
+        body.dark .text-gray-800 {
+            color: #f9fafb !important;
+        }
+        
+        body.dark .text-gray-600 {
+            color: #d1d5db !important;
+        }
+        
+        body.dark .text-gray-500 {
+            color: #9ca3af !important;
+        }
+        
+        body.dark .text-gray-700 {
+            color: #d1d5db !important;
+        }
+        
+        body.dark .text-gray-900 {
+            color: #f9fafb !important;
+        }
+        
+        /* Dark mode background colors */
+        body.dark .bg-gray-100 {
+            background-color: #374151 !important;
+        }
+        
+        body.dark .bg-gray-200 {
+            background-color: #4b5563 !important;
+        }
+        
+        body.dark .bg-gray-50 {
+            background-color: #374151 !important;
+        }
+        
+        /* Dark mode border colors */
+        body.dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+        
+        body.dark .border {
+            border-color: #4b5563 !important;
+        }
+        
+        /* Dark mode shadow */
+        body.dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        body.dark .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        /* Switch toggle styles */
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 48px;
+          height: 28px;
+        }
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #374151;
+          transition: .4s;
+          border-radius: 34px;
+        }
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 22px;
+          width: 22px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+        }
+        .switch input:checked + .slider {
+          background-color: #2563eb;
+        }
+        .switch input:checked + .slider:before {
+          transform: translateX(20px);
+        }
+        
+        /* Responsive header and dark mode toggle styles */
+        @media (max-width: 640px) {
+          header .container {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+          }
+          header .h-16 {
+            height: 3.5rem;
+          }
+          header img {
+            max-width: 90px;
+            height: 2rem;
+          }
+          .switch {
+            width: 40px;
+            height: 24px;
+          }
+          .slider:before {
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+          }
+        }
+        
+        body.dark [for="darkmode-toggle"],
+        body.dark [for="darkmode-toggle-mobile"] {
+          color: #f3f4f6 !important;
+        }
+        
+        /* Fallback header style if Tailwind fails to load */
+        header, .container { box-sizing: border-box; }
+        header { background: #fff; border-bottom: 1px solid #eee; padding: 0.5em 1em; }
+        header a img { display: inline-block; vertical-align: middle; }
+        header .switch { vertical-align: middle; }
+    </style>
+</head>
+<!-- ========================================
+     MAIN BODY - ALPINE.JS INITIALIZATION
+     ======================================== -->
+<body class="bg-gray-100" x-data="{ mobileMenuOpen: false, isDarkMode: false }" x-init="
+    // ========================================
+    // DARK MODE INITIALIZATION
+    // ========================================
+    
+    // Check for saved dark mode preference in localStorage or default to light mode
+    isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        document.body.classList.add('dark'); // Apply dark theme if previously selected
+    }
+    
+    // ========================================
+    // DARK MODE TOGGLE FUNCTION
+    // ========================================
+    
+    // Global function to toggle between light and dark themes
+    window.toggleDarkMode = function() {
+        isDarkMode = !isDarkMode; // Toggle the state
+        
+        if (isDarkMode) {
+            document.body.classList.add('dark'); // Add dark class for CSS styling
+            localStorage.setItem('darkMode', 'true'); // Save preference
+        } else {
+            document.body.classList.remove('dark'); // Remove dark class
+            localStorage.setItem('darkMode', 'false'); // Save preference
+        }
+    }
+">
+
+    <!-- ========================================
+         RESPONSIVE HEADER SECTION
+         ======================================== -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 w-full">
+                <!-- ========================================
+                     LOGO & BRANDING AREA
+                     ======================================== -->
+                <div class="flex items-center">
+                    <!-- Miami CRA Logo - Update path as needed -->
+                    <div class="mr-3">
+                        <img src="images/logo.png" alt="Miami CRA Logo" class="h-6 w-6">
+                    </div>
+                    <!-- Main site title -->
+                    <h1 class="text-xl font-bold text-gray-800">Miami CRA</h1>
+                </div>
+                
+                <!-- ========================================
+                     DESKTOP NAVIGATION MENU
+                     ======================================== -->
+                <nav class="hidden md:flex space-x-8">
+                    <!-- OMNI CRA - External link to official website -->
+                    <a href="http://www.omnicra.com" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">OMNI</a>
+                    <!-- Southeast Overtown/Park West CRA - External link to official website -->
+                    <a href="http://www.seopwcra.com/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">SEOPW</a>
+                    <!-- Midtown CRA - Internal anchor link to card section -->
+                    <a href="#midtown" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Midtown</a>
+                </nav>
+                
+                <!-- ========================================
+                     RIGHT SIDE CONTROLS
+                     ======================================== -->
+                <div class="flex items-center space-x-4">
+                    <!-- ========================================
+                         DARK MODE TOGGLE SWITCH
+                         ======================================== -->
+                    <div class="flex items-center">
+                        <!-- Dark mode label - hidden on small screens -->
+                        <label for="darkmode-toggle" class="mr-2 text-base select-none hidden sm:block" style="color: #000;">Darkmode</label>
+                        <!-- Custom toggle switch component -->
+                        <label class="switch">
+                            <input id="darkmode-toggle" type="checkbox" @change="toggleDarkMode()" :checked="isDarkMode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                            <span class="sr-only">Open main menu</span>
+                            <svg x-show="!mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                            <svg x-show="mobileMenuOpen" x-cloak class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" x-transition class="md:hidden" x-cloak>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="http://www.omnicra.com" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">OMNI</a>
+                <a href="http://www.seopwcra.com/" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">SEOPW</a>
+                <a href="#midtown" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Midtown</a>
+                <!-- Mobile dark mode toggle -->
+                <div class="flex items-center mt-3">
+                    <label for="darkmode-toggle-mobile" class="mr-2 text-base select-none" style="color: #000;">Darkmode</label>
+                    <label class="switch">
+                        <input id="darkmode-toggle-mobile" type="checkbox" @change="toggleDarkMode()" :checked="isDarkMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero-bg text-white">
+        <div class="bg-black bg-opacity-50">
+            <div class="container mx-auto px-6 py-32 md:py-48 text-center">
+                <!-- Main hero headline -->
+                <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">BUILDING</h2>
+                <!-- Hero subtitle -->
+                <p class="text-4xl md:text-6xl font-semibold mt-2">A Better Community</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MAIN CONTENT AREA
+         ======================================== -->
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl bg-white rounded-lg shadow-lg my-8">
+        <div class="p-6 md:p-8">
+            <!-- CRA Cards Grid - Responsive layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                
+                <!-- ========================================
+                     OMNI CRA CARD
+                     ======================================== -->
+                <div id="omni" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <div class="bg-blue-700 p-6">
+                        <h3 class="text-2xl font-bold text-white">OMNI CRA</h3>
+                    </div>
+                    <div class="p-8 space-y-4 text-gray-700 flex-grow">
+                        <p class="font-semibold text-lg text-gray-800">H. Bert Gonzalez<br><span class="font-normal text-base">Executive Director</span></p>
+                        <div class="flex items-start"><i class="fas fa-map-marker-alt w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div>1401 North Miami Ave. Upstairs<br>Miami, Florida 33136</div></div>
+                        <div class="flex items-start"><i class="fas fa-phone w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div>305-679-6869</div></div>
+                        <div class="flex items-start"><i class="fas fa-envelope w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div><a href="mailto:hugonzalez@miamigov.com" class="hover:underline">hugonzalez@miamigov.com</a></div></div>
+                        <div class="flex items-start"><i class="fas fa-globe w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div><a href="http://www.omnicra.com" target="_blank" rel="noopener noreferrer" class="hover:underline">www.omnicra.com</a></div></div>
+                    </div>
+                </div>
+
+                <!-- ========================================
+                     SOUTHEAST OVERTOWN / PARK WEST CRA CARD
+                     ======================================== -->
+                <div id="seopw" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <div class="bg-blue-700 p-6">
+                        <h3 class="text-2xl font-bold text-white">SEOPW CRA</h3>
+                    </div>
+                    <div class="p-8 space-y-4 text-gray-700 flex-grow">
+                        <!-- Executive Director Information -->
+                        <p class="font-semibold text-lg text-gray-800">James McQueen<br><span class="font-normal text-base">Interim Executive Director</span></p>
+                        <!-- Office Address -->
+                        <div class="flex items-start"><i class="fas fa-map-marker-alt w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div>819 NW 2nd Ave., 3rd Floor<br>Miami, Florida 33136</div></div>
+                        <!-- Phone Number -->
+                        <div class="flex items-start"><i class="fas fa-phone w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div>305-679-6800</div></div>
+                        <!-- Website Link -->
+                        <div class="flex items-start"><i class="fas fa-globe w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div><a href="http://www.seopwcra.com/" target="_blank" rel="noopener noreferrer" class="hover:underline">www.seopwcra.com</a></div></div>
+                    </div>
+                </div>
+
+                <!-- ========================================
+                     MIDTOWN CRA CARD
+                     ======================================== -->
+                <div id="midtown" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <div class="bg-blue-700 p-6">
+                        <h3 class="text-2xl font-bold text-white">Midtown CRA</h3>
+                    </div>
+                    <div class="p-8 space-y-4 text-gray-700 flex-grow">
+                        <p class="font-semibold text-lg text-gray-800">Anthony Balzebre<br><span class="font-normal text-base">Executive Director</span></p>
+                        <div class="flex items-start"><i class="fas fa-envelope w-5 text-blue-600 mt-1 mr-4 flex-shrink-0"></i><div><a href="mailto:abalzebre@miamigov.com" class="hover:underline">abalzebre@miamigov.com</a></div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <!-- ========================================
+         FOOTER SECTION
+         ======================================== -->
+    <footer class="bg-gray-800 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <!-- Copyright information -->
+                <p class="text-gray-300">&copy; 2024 Miami Community Redevelopment Agency. All rights reserved.</p>
+                <!-- Tagline -->
+                <p class="text-sm text-gray-400 mt-2">Building a Better Community Together</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ========================================
+         JAVASCRIPT FUNCTIONALITY
+         ======================================== -->
+    <script>
+        // ========================================
+        // SMOOTH SCROLLING FOR ANCHOR LINKS
+        // ========================================
+        
+        // Initialize smooth scrolling when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all anchor links that point to internal page sections
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Prevent default jump behavior
+                    
+                    // Get the target element from the href attribute
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    
+                    // Smooth scroll to target if it exists
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth' // Enable smooth scrolling animation
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
